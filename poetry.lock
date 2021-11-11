@@ -62,7 +62,7 @@ opencv-python = "^4.5.4"
 type = "git"
 url = "https://github.com/GPT-RL/clevr_robot_env.git"
 reference = "master"
-resolved_reference = "aa05332bcf029c0b3de7641a8665b17630e9a1db"
+resolved_reference = "15bfc6765b2533b4eb70455a13bd2d4b7c17b0a1"
 
 [[package]]
 name = "cloudpickle"

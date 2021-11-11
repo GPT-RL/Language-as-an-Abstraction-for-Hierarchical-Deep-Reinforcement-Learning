@@ -1,18 +1,18 @@
-from stable_baselines3 import DDPG, DQN, HerReplayBuffer, SAC, TD3
-from stable_baselines3.common.envs import BitFlippingEnv
+from clevr_robot_env import ClevrEnv
+from stable_baselines3 import DQN, HerReplayBuffer
 
-# works also with SAC, DDPG and TD3
-N_BITS = 4
-
-env = BitFlippingEnv(n_bits=N_BITS, continuous=False, max_steps=N_BITS)
+env = ClevrEnv(
+    action_type="perfect",
+    obs_type="order_invariant",
+    direct_obs=True,
+    use_subset_instruction=True,
+)
 
 # Available strategies (cf paper): future, final, episode
 goal_selection_strategy = 'future' # equivalent to GoalSelectionStrategy.FUTURE
 
 # If True the HER transitions will get sampled online
 online_sampling = True
-# Time limit for the episodes
-max_episode_length = N_BITS
 
 # Initialize the model
 # noinspection PyTypeChecker
@@ -25,7 +25,7 @@ model = DQN(
         n_sampled_goal=4,
         goal_selection_strategy=goal_selection_strategy,
         online_sampling=online_sampling,
-        max_episode_length=max_episode_length,
+        max_episode_length=env.max_episode_steps,
     ),
     verbose=1,
 )

@@ -1,6 +1,7 @@
 import numpy as np
 import random
 
+
 class ReplayBuffer:
     def __init__(self, size):
         """Create Replay buffer.
@@ -29,7 +30,15 @@ class ReplayBuffer:
         self._next_idx = int((self._next_idx + 1) % self._maxsize)
 
     def _encode_sample(self, batch_size):
-        state_t, actions, goals, rewards, state_tp1, satisfied_goals, dones = [], [], [], [], [], [], []
+        state_t, actions, goals, rewards, state_tp1, satisfied_goals, dones = (
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+        )
         for i in batch_size:
             t = self._storage[i]
 
@@ -41,7 +50,15 @@ class ReplayBuffer:
             satisfied_goals.append(t.satisfied_goals_t)
             dones.append(t.done)
 
-        return np.array(state_t), np.array(actions), np.array(goals), np.array(rewards), np.array(state_tp1), np.array(satisfied_goals), np.array(dones)
+        return (
+            np.array(state_t),
+            np.array(actions),
+            np.array(goals),
+            np.array(rewards),
+            np.array(state_tp1),
+            np.array(satisfied_goals),
+            np.array(dones),
+        )
 
     def sample(self, batch_size):
         """Sample a batch of experiences.

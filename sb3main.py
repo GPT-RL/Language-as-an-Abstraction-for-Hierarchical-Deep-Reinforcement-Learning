@@ -2,7 +2,7 @@ from stable_baselines3 import DDPG, DQN, HerReplayBuffer, SAC, TD3
 from stable_baselines3.common.envs import BitFlippingEnv
 
 # works also with SAC, DDPG and TD3
-N_BITS = 15
+N_BITS = 4
 
 env = BitFlippingEnv(n_bits=N_BITS, continuous=False, max_steps=N_BITS)
 
@@ -31,7 +31,7 @@ model = DQN(
 )
 
 # Train the model
-model.learn(1000)
+model.learn(100000)
 
 model.save("./her_bit_env")
 # Because it needs access to `env.compute_reward()`
